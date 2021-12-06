@@ -12,9 +12,11 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
+      CodeUri: ../../hello-world
       Handler: app.lambdaHandler
       Runtime: nodejs14.x
+      Layers:
+      - Ref: NodeDependenciesLayer
       Architectures:
       - x86_64
       Events:
@@ -26,8 +28,22 @@ Resources:
   YesterdayFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: YesterdayFunction
+      CodeUri: ../../year-days
       Handler: yeardays.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+  GetImimiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../postrges-add
+      Handler: app.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
       - x86_64
@@ -40,7 +56,7 @@ Resources:
   PlayingBanjoFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PlayingBanjoFunction
+      CodeUri: ../../playing-banjo
       Handler: banjo.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
@@ -54,7 +70,7 @@ Resources:
   IsOddFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: IsOddFunction
+      CodeUri: ../../is-odd
       Handler: isOdd.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
@@ -68,7 +84,7 @@ Resources:
   IsDivisibleFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: IsDivisibleFunction
+      CodeUri: ../../is-divisible
       Handler: isDivisible.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
@@ -82,7 +98,7 @@ Resources:
   IsTriangleFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: IsTriangleFunction
+      CodeUri: ../../is-triangle
       Handler: isTriangle.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
@@ -93,6 +109,35 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  WorkCaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../work-case
+      Handler: findTown.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Layers:
+      - Ref: NodeDependenciesLayer
+  SendEmailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: SendEmailFunction
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Timeout: 10
+      Architectures:
+      - x86_64
+      Layers:
+      - Ref: NodeDependenciesLayer
+  NodeDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: NodeDependenciesLayer
+      Description: Shared dependencies layer.
+      ContentUri: ../../layers/nodejs
+      CompatibleRuntimes:
+      - nodejs14.x
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function

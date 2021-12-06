@@ -1,11 +1,12 @@
 {
-  "body": "{ \"a\":4, \"b\":7 }",
+  "body": "{,jgf,jhghkghjkghkjg,g,hjg,hjjg,hjghg}",
   "resource": "/{proxy+}",
   "path": "/path/to/resource",
   "httpMethod": "POST",
   "isBase64Encoded": false,
   "queryStringParameters": {
-    "foo": "bar"
+    "town": "Lviv",
+    "coord": ["49.8382600", "24.0232400"]
   },
   "pathParameters": {
     "proxy": "/path/to/resource"

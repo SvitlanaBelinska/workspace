@@ -17,6 +17,8 @@ Resources:
       CodeUri: hello-world/
       Handler: app.lambdaHandler
       Runtime: nodejs14.x
+      Layers:
+        - !Ref NodeDependenciesLayer        
       Architectures:
         - x86_64
       Events:
@@ -31,6 +33,21 @@ Resources:
     Properties:
       CodeUri: year-days/
       Handler: yeardays.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hello
+            Method: get
+
+  GetImimiFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: postrges-add/
+      Handler: app.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
         - x86_64
@@ -97,7 +114,39 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /hello
-            Method: get       
+            Method: get  
+
+  WorkCaseFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: work-case/
+      Handler: findTown.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Layers:
+        - !Ref NodeDependenciesLayer  
+
+  SendEmailFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: send-email/
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Timeout: 10
+      Architectures:
+        - x86_64
+      Layers:
+        - !Ref NodeDependenciesLayer  
+
+  NodeDependenciesLayer:
+      Type: AWS::Serverless::LayerVersion
+      Properties:
+        LayerName: 'NodeDependenciesLayer'
+        Description: 'Shared dependencies layer.'
+        ContentUri: ./layers/nodejs
+        CompatibleRuntimes:
+          - nodejs14.x          
 
 
 Outputs:

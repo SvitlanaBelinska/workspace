@@ -14,6 +14,9 @@ let response;
  * @returns {Object} object - API Gateway Lambda Proxy Output Format
  * 
  */
+ const knex = require("knex");
+
+
 exports.lambdaHandler = async (event, context) => {
     try {
         // const ret = await axios(url);

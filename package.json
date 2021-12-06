@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "dependencies": {
+    "emailjs": "^3.7.0",
+    "faker": "^5.5.3",
+    "knex": "^0.95.14",
+    "node-mailer": "^0.1.1",
+    "nodemailer": "^6.7.2",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "pg": "^8.7.1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+"name": "nodejs",
+"version": "1.0.0",
+"description": "",
+"main": "index.js",
+"dependencies": {
+    "knex": "^0.21.18"
+  }
+}
